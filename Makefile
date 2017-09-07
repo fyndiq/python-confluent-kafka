@@ -8,5 +8,5 @@ build:
 run:
 	docker run -it --rm $(NAME)
 
-push:
+push: build
 	docker push $(REPO)/$(NAME):$(TAG)
