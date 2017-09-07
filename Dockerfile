@@ -7,6 +7,7 @@ RUN \
         g++ \
         git \
         librdkafka@edge \
+        librdkafka-dev@edge \
         libressl \
         libressl-dev \
         make \
