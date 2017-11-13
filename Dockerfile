@@ -10,6 +10,7 @@ RUN \
         librdkafka-dev@edge \
         libressl \
         libressl-dev \
+        linux-headers \
         make \
         musl-dev \
         zlib-dev
