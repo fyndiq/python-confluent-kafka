@@ -1,0 +1,5 @@
+Cython==0.25.2
+confluent-kafka[avro]==0.11.0
+fastavro==0.16.3
+git+https://github.com/fyndiq/confluent_kafka_helpers#egg=confluent-kafka-helpers
+git+https://github.com/fyndiq/eventsourcing_helpers@v0.4.6#egg=eventsourcing-helpers
