@@ -1,14 +1,13 @@
-FROM python:3.6.2-alpine3.6
+FROM python:3.6.4-alpine3.7
 
 RUN \
-    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     apk add --no-cache \
         bash \
         ca-certificates \
         g++ \
         git \
-        librdkafka@edge \
-        librdkafka-dev@edge \
+        librdkafka \
+        librdkafka-dev \
         libressl \
         libressl-dev \
         linux-headers \
