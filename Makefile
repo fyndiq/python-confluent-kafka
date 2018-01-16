@@ -1,6 +1,6 @@
 REPO=fyndiq
 NAME=python-alpine-kafka
-TAG=python3.6.2-librdkafka0.9.5-r0
+TAG=python3.6.4-librdkafka0.11.1-r1
 
 build:
 	docker build -t $(REPO)/$(NAME):$(TAG) .
