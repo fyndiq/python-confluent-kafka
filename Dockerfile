@@ -1,6 +1,6 @@
 FROM python:3.6.4-alpine3.7
 
-ARG VERSION=0.11.3
+ARG VERSION=0.11.4
 
 RUN apk add --no-cache \
         bash \
