@@ -1,0 +1,61 @@
+diff --git a/configure.librdkafka b/configure.librdkafka
+index 337d937..fe5e282 100644
+--- a/configure.librdkafka
++++ b/configure.librdkafka
+@@ -96,6 +96,17 @@ void foo (void) {
+         fi
+ 	mkl_lib_check "libssl" "WITH_SSL" disable CC "-lssl" \
+                       "#include <openssl/ssl.h>"
++
++        # Check if libssl-dev supports the SSL_CTX_set1_sigalgs_list() and
++        # SSL_CTX_set1_curves_list() functions.
++        mkl_compile_check "libssl_sigalgs_curves" "WITH_SSL_SIGALGS_CURVES" disable CC "-lssl" \
++'
++#include <openssl/ssl.h>
++void foo (void) {
++    SSL_CTX_set1_sigalgs_list(NULL, "TEST");
++    SSL_CTX_set1_curves_list(NULL, "TEST");
++}'
++
+     fi
+ 
+     if [[ "$ENABLE_SASL" == "y" ]]; then
+diff --git a/src/rdkafka_conf.c b/src/rdkafka_conf.c
+index c20d9d1..a080bdc 100644
+--- a/src/rdkafka_conf.c
++++ b/src/rdkafka_conf.c
+@@ -485,7 +485,7 @@ static const struct rd_kafka_property rd_kafka_properties[] = {
+ 	  "protocol. See manual page for `ciphers(1)` and "
+ 	  "`SSL_CTX_set_cipher_list(3)."
+ 	},
+-#if OPENSSL_VERSION_NUMBER >= 0x1000200fL
++#if WITH_SSL_SIGALGS_CURVES
+         { _RK_GLOBAL, "ssl.curves.list", _RK_C_STR,
+           _RK(ssl.curves_list),
+           "The supported-curves extension in the TLS ClientHello message specifies "
+diff --git a/src/rdkafka_conf.h b/src/rdkafka_conf.h
+index 27e448d..222e74b 100644
+--- a/src/rdkafka_conf.h
++++ b/src/rdkafka_conf.h
+@@ -148,7 +148,7 @@ struct rd_kafka_conf_s {
+ 	struct {
+ 		SSL_CTX *ctx;
+ 		char *cipher_suites;
+-#if OPENSSL_VERSION_NUMBER >= 0x1000200fL
++#if WITH_SSL_SIGALGS_CURVES
+ 		char *curves_list;
+ 		char *sigalgs_list;
+ #endif
+diff --git a/src/rdkafka_transport.c b/src/rdkafka_transport.c
+index 815fb31..243399e 100644
+--- a/src/rdkafka_transport.c
++++ b/src/rdkafka_transport.c
+@@ -872,7 +872,7 @@ int rd_kafka_transport_ssl_ctx_init (rd_kafka_t *rk,
+ 		}
+ 	}
+ 
+-#if OPENSSL_VERSION_NUMBER >= 0x1000200fL
++#if WITH_SSL_SIGALGS_CURVES
+ 	/* Curves */
+ 	if (rk->rk_conf.ssl.curves_list) {
+ 		rd_kafka_dbg(rk, SECURITY, "SSL",
