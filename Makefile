@@ -1,6 +1,6 @@
 REPO=fyndiq
 NAME=python-alpine-kafka
-TAG=python3.6.6-librdkafka0.11.5
+TAG=python3.7.1-librdkafka0.11.6
 IMG=$(REPO)/$(NAME):$(TAG)
 
 build:

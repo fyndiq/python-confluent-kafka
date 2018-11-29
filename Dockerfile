@@ -1,6 +1,6 @@
-FROM python:3.6.6-alpine3.8
+FROM python:3.7.1-alpine3.8
 
-ARG VERSION=0.11.5
+ARG VERSION=0.11.6
 
 RUN apk add --no-cache \
         bash \
@@ -14,15 +14,11 @@ RUN apk add --no-cache \
         musl-dev \
         zlib-dev
 
-# https://github.com/alpinelinux/aports/pull/4841
-COPY libressl.patch /tmp/libressl.patch
-
 RUN wget https://github.com/edenhill/librdkafka/archive/v$VERSION.tar.gz \
         -O /tmp/librdkafka-$VERSION.tar.gz && \
     cd /tmp/ && \
     tar zxf librdkafka-$VERSION.tar.gz && \
     cd librdkafka-$VERSION && \
-    patch -p1 < /tmp/libressl.patch && \
     ./configure && \
     make && \
     make install
