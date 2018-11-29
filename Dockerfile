@@ -14,15 +14,11 @@ RUN apk add --no-cache \
         musl-dev \
         zlib-dev
 
-# https://github.com/alpinelinux/aports/pull/4841
-COPY libressl.patch /tmp/libressl.patch
-
 RUN wget https://github.com/edenhill/librdkafka/archive/v$VERSION.tar.gz \
         -O /tmp/librdkafka-$VERSION.tar.gz && \
     cd /tmp/ && \
     tar zxf librdkafka-$VERSION.tar.gz && \
     cd librdkafka-$VERSION && \
-    patch -p1 < /tmp/libressl.patch && \
     ./configure && \
     make && \
     make install
