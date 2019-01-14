@@ -1,6 +1,5 @@
-### Build and push image to Dockerhub
-```sh
-docker login -u <dockerhub_username>
-make push
-```
-https://hub.docker.com/r/fyndiq/python-alpine-kafka/
+# Python Alpine Kafka
+Docker image that extends the python:alpine image with librdkafka.
+
+See [Dockerhub](https://hub.docker.com/r/fyndiq/python-alpine-kafka/) for
+available tags.
