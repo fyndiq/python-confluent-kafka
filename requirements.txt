@@ -1,4 +1,4 @@
-Cython==0.29.7
+Cython==0.29.10
 avro-python3==1.8.2
-confluent-kafka==1.0.0
-fastavro==0.21.23
+confluent-kafka==1.0.1
+fastavro==0.21.24
