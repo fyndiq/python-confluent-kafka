@@ -1,31 +1,32 @@
 FROM python:3.7.3-alpine3.9
 
-ARG VERSION=1.0.1
-
-COPY requirements.txt /tmp/
-
 RUN apk add --no-cache \
         bash \
         ca-certificates \
-        libressl && \
-    apk add --no-cache --virtual .build-deps  \
-        g++ \
         git \
+        make
+
+RUN apk add --no-cache --virtual .build-deps \
+        g++ \
+        libressl \
         libressl-dev \
         linux-headers \
-        make \
         musl-dev \
-        zlib-dev && \
-    wget https://github.com/edenhill/librdkafka/archive/v$VERSION.tar.gz \
-        -O /tmp/librdkafka-$VERSION.tar.gz && \
+        zlib-dev
+
+ARG LIBRDKAFKA_VERSION=1.0.1
+RUN wget https://github.com/edenhill/librdkafka/archive/v$LIBRDKAFKA_VERSION.tar.gz \
+        -O /tmp/librdkafka-$LIBRDKAFKA_VERSION.tar.gz && \
     cd /tmp/ && \
-    tar zxf librdkafka-$VERSION.tar.gz && \
-    cd librdkafka-$VERSION && \
+    tar zxf librdkafka-$LIBRDKAFKA_VERSION.tar.gz && \
+    cd librdkafka-$LIBRDKAFKA_VERSION && \
     ./configure && \
     make && \
     make install && \
-    cd .. && rm -fr librdkafka-$VERSION && \
-    pip install --no-cache-dir -r /tmp/requirements.txt && \
+    cd .. && rm -fr librdkafka-$LIBRDKAFKA_VERSION
+
+COPY requirements.txt /tmp/
+RUN pip install --no-cache-dir -r /tmp/requirements.txt && \
     apk del .build-deps
 
 ENV PYTHONUNBUFFERED 1
