@@ -1,16 +1,15 @@
-FROM python:3.7.3-alpine3.9
+FROM python:3.7.6-alpine3.10
 
 RUN apk add --no-cache \
         bash \
         ca-certificates \
-        git \
-        make
-
-RUN apk add --no-cache --virtual .build-deps \
         g++ \
+        gcc \
+        git \
         libressl \
         libressl-dev \
         linux-headers \
+        make \
         musl-dev \
         zlib-dev
 
@@ -26,8 +25,7 @@ RUN wget https://github.com/edenhill/librdkafka/archive/v$LIBRDKAFKA_VERSION.tar
     cd .. && rm -fr librdkafka-$LIBRDKAFKA_VERSION
 
 COPY requirements.txt /tmp/
-RUN pip install --no-cache-dir -r /tmp/requirements.txt && \
-    apk del .build-deps
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 ENV PYTHONUNBUFFERED 1
 CMD ["python"]
