@@ -1,4 +1,3 @@
-Cython
 avro-python3
 confluent-kafka[avro]
 fastavro

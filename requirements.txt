@@ -8,7 +8,6 @@ avro-python3==1.9.2.1
 certifi==2019.11.28       # via requests
 chardet==3.0.4            # via requests
 confluent-kafka[avro]==1.3.0
-cython==0.29.15
 fastavro==0.22.9
 idna==2.8                 # via requests
 requests==2.22.0          # via confluent-kafka
