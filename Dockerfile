@@ -12,8 +12,13 @@ RUN apt-get update && apt-get install -y curl build-essential && \
 FROM python:3.8-slim-buster
 COPY --from=librdkafka /usr/local/lib/librdkafka* /usr/local/lib/
 COPY --from=librdkafka /usr/local/include/librdkafka/ /usr/local/include/librdkafka/
-RUN apt-get update && apt-get install -y libsasl2-2 && ldconfig
+RUN apt-get update && apt-get install -y sudo libsasl2-2 && ldconfig && \
+    echo "app ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/app && \
+    useradd -d /app --create-home app && \
+    rm -rf /var/lib/apt/lists/*
 COPY requirements.txt /tmp/
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
+WORKDIR /app
+USER app
 ENV PYTHONUNBUFFERED 1
 CMD ["python"]
