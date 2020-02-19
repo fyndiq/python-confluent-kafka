@@ -1,6 +1,6 @@
 REPO=fyndiq
 NAME=python-confluent-kafka
-TAG=python3.8-buster-confluent-kafka1.3.0-v0
+TAG=1.3.0-python3.8-buster-v0
 IMAGE=$(REPO)/$(NAME):$(TAG)
 
 build:
