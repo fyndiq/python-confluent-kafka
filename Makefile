@@ -1,6 +1,6 @@
 REPO=fyndiq
-NAME=python-alpine-kafka
-TAG=python3.7.6-librdkafka1.0.1-v0
+NAME=python-confluent-kafka
+TAG=1.3.0-python3.8-buster-v0
 IMAGE=$(REPO)/$(NAME):$(TAG)
 
 build:
@@ -8,7 +8,7 @@ build:
 	docker tag $(IMAGE) $(REPO)/$(NAME):latest
 
 run:
-	docker run -it --rm $(IMAGE)
+	docker run -it --rm $(IMAGE) bash
 
 push:
 	docker push $(IMAGE)
