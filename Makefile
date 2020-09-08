@@ -15,4 +15,4 @@ push:
 	docker push $(REPO)/$(NAME):latest
 
 pip-update:
-	pip-compile requirements.in --output-file requirements.txt
+	pip-compile -U requirements.in --output-file requirements.txt
