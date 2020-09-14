@@ -1,1 +1,1 @@
-confluent-kafka[avro]>=1.5.0
+confluent-kafka-helpers>=0.7.7
