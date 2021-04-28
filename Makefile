@@ -14,5 +14,8 @@ push:
 	docker push $(IMAGE)
 	docker push $(REPO)/$(NAME):latest
 
+archive-image:
+	docker save -o image.tar $(IMAGE)
+
 pip-update:
 	pip-compile -U requirements.in --output-file requirements.txt
