@@ -1,4 +1,4 @@
-FROM python:3.8.9-slim-buster
+FROM python:3.8.10-slim-buster
 RUN apt update && apt install -y make && \
     useradd -d /app --create-home app && \
     rm -rf /var/lib/apt/lists/*
